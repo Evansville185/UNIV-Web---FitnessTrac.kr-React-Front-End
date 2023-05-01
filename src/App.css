@@ -187,7 +187,7 @@ p, span {
   border-radius: 5px;
 }
 
-.activity-button, .delete-activity-button, .delete-routine-button, .update-routine-button, .open-updater-button, .cancel-update-button {
+.activity-button, .delete-activity-button, .delete-routine-button, .routine-update-button, .open-updater-button, .cancel-update-button {
   border-radius: 5px;
   padding: 2px;
   font-weight: bold;

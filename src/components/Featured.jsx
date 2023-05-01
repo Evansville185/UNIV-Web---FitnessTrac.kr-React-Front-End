@@ -83,7 +83,7 @@ const Featured = ({online, token}) => {
                     <span className="chekboxText">isPublic?</span>
                     <input type="checkbox" id="public-id"
                     checked={isPublic}
-                    onChange={(event) => setIsPublic(event.target.checked)}></input>
+                    onChange={(event) => setIsPublic(event.target.checked)} />
                     </label>
                     <MainButton fromType='routine-form' btnLabel='Submit Routine' /> 
                 </form>

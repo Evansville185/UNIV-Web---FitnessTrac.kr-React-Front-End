@@ -3,7 +3,7 @@ import { useFetchRoutines } from './captainhook/useFetchRoutines';
 import RoutineButton from './UI/RoutineButton';
 import { deleteRoutine, deleteRoutine_Activity, updatedRoutine } from "../api";
 
-const Routines = ({online, token, username, routineName, goal, isPublic, setRoutines}) => {
+const Routines = ({online, token, username, routineName, setRoutineName, goal, setGoal, isPublic, setIsPublic, setRoutines}) => {
 
 const { routines } = useFetchRoutines();
 const [selectedRoutine, setSelectedRoutine] = useState(null);
@@ -78,10 +78,35 @@ const [updateMode, setUpdateMode] = useState(false);
                     </button>
                     )}
                     {routine.id && updateMode ? (
+                      <form onSubmit={handlePatchRoutine} id="patch-routine-form">
+                        <input
+                        type="text"
+                        required
+                        className="create-name-input"
+                        placeholder={routine.name}
+                        onChange={event => setRoutineName(event.target.value)}
+                        />
+                    <input
+                        type="text"
+                        required
+                        className="create-goal-input"
+                        placeholder={routine.goal}
+                        onChange={event => setGoal(event.target.value)}
+                        />
+                    <span className="chekboxText">isPublic?</span>
+                    <input type="checkbox" id="public-id"
+                    checked={isPublic}
+                    onChange={(event) => setIsPublic(event.target.checked)} />
+                        <button
+                        className='routine-update-button'
+                        formType='patch-routine-form'
+                        >Submit Update
+                        </button>
                         <button 
                           className='cancel-update-button'
                           onClick={() => cancelUpdate(routine)}>Cancel Update
                         </button>
+                      </form>
                     ) : ""}
                     {selectedRoutine === routine.id && (
                       <div className='attachedActivities--container'>
