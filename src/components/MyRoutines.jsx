@@ -1,29 +1,45 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { useFetchRoutines } from './captainhook/useFetchRoutines';
 import RoutineButton from './UI/RoutineButton';
-import { deleteRoutine, deleteRoutine_Activity } from "../api";
+import { deleteRoutine, deleteRoutine_Activity, updatedRoutine } from "../api";
 
-const Routines = ({online, token, username}) => {
+const Routines = ({online, token, username, routineName, goal, isPublic, setRoutines}) => {
 
 const { routines } = useFetchRoutines();
-console.log("routines array", routines);
 const [selectedRoutine, setSelectedRoutine] = useState(null);
 const [deletedRoutine, setDeletedRoutine] = useState(null);
+const [updateMode, setUpdateMode] = useState(false);
 
 
   //delete routine
   const handleDelete = async (routineId) => {
     await deleteRoutine(routineId, {token});
     setDeletedRoutine(routineId);
-    const filtration = routines.filter((routine => routine.id !== routineId))
-    setDeletedRoutine(filtration);
+    routines.filter((routine => routine.id !== routineId))
+    setRoutines(routines);
   };
 
+  //delete routine activity
   const handleDeleteRA = async (routineActivityId) => {
     await deleteRoutine_Activity(routineActivityId, {token});
   };
 
+  //open update box
+  const openUpdater = (routine) => {
+    //setPostId(post._id)
+    setUpdateMode(true);
+  }
 
+  //cancel update
+  const cancelUpdate = () => {
+    setUpdateMode(false);
+    //setPostId(null);
+  }
+
+  //update routine
+  const handlePatchRoutine = async (routineId) => {
+    await updatedRoutine(routineId, {token, routineName, goal, isPublic});
+  }
 
   return (
     <main className="page-right">
@@ -55,6 +71,18 @@ const [deletedRoutine, setDeletedRoutine] = useState(null);
                         className='delete-routine-button'
                         onClick={() => handleDelete(routine.id)}>Delete Routine
                     </button>
+                    {!updateMode && (
+                    <button
+                        className='open-updater-button'
+                        onClick={() => openUpdater(routine)}>Update Routine
+                    </button>
+                    )}
+                    {routine.id && updateMode ? (
+                        <button 
+                          className='cancel-update-button'
+                          onClick={() => cancelUpdate(routine)}>Cancel Update
+                        </button>
+                    ) : ""}
                     {selectedRoutine === routine.id && (
                       <div className='attachedActivities--container'>
                         {routine.activities.map((activity) => (

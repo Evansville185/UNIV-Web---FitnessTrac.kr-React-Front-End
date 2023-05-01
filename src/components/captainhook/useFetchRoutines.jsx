@@ -3,8 +3,8 @@ import { getAllRoutines, getRoutinesById, getUserRoutines } from '../../api'
 
 export const useFetchRoutines = () => {
     const [routines, setRoutines] = useState([])
-    const [getRoutineById, setGetRoutineById] = useState([])
-    const [userRoutines, setUserRoutines] = useState([]);
+    // const [getRoutineById, setGetRoutineById] = useState([])
+    // const [userRoutines, setUserRoutines] = useState([]);
 
     useEffect(() => {
         const fetchRoutines = async () => {
@@ -13,21 +13,21 @@ export const useFetchRoutines = () => {
           }
         fetchRoutines();
     
-        const fetchRoutineById = async () => {
-          const routineId = 3
-          const results = await getRoutinesById(routineId)
-          setGetRoutineById(results)
-          }
-        fetchRoutineById();
+        // const fetchRoutineById = async () => {
+        //   const routineId = 3
+        //   const results = await getRoutinesById(routineId)
+        //   setGetRoutineById(results)
+        //   }
+        // fetchRoutineById();
 
-        const fetchUserRoutines = async () => {
-          const results = await getUserRoutines();
-          setUserRoutines(results);
-          console.log("user routines", userRoutines);
-        }
-        fetchUserRoutines();
+        // const fetchUserRoutines = async () => {
+        //   const results = await getUserRoutines();
+        //   setUserRoutines(results);
+        //   console.log("user routines", userRoutines);
+        // }
+        // fetchUserRoutines();
 
         }, [])
     
-        return {routines, getRoutineById};
+        return {routines};
     }

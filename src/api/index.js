@@ -47,7 +47,7 @@ export const userLogin = async (username, password) => {
 	}
 };
 
-/*
+
 // GET /users/me
 export const userData = async () => {
 	try {
@@ -64,7 +64,6 @@ export const userData = async () => {
 		console.error(err);
 	}
 };
-*/
 
 //   GET /users/:username/routines
 export const getUserRoutines = async ({username, token}) => {
@@ -128,14 +127,14 @@ export const createActivity = async ({token, activityName, description}) => {
 	}
 };
 
-/*
+
 // PATCH /activities/:activityId
-export const updateActivityById = async () => {
+export const updateActivityById = async ({token}) => {
 	try {
 		const response = await fetch(`${BASE_URL}/activities`, {
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${TOKEN_STRING_HERE}`,
+				Authorization: `Bearer ${token}`,
 			},
 			method: "PATCH",
 			body: JSON.stringify({
@@ -168,7 +167,6 @@ export const getActivityByActivityId = async () => {
 	}
 };
 
-*/
 
 //Routines Fetch------------------------------------------------
 // GET /routines
@@ -213,20 +211,20 @@ export const createRoutine = async ({token, routineName, goal, isPublic}) => {
 		console.error(err);
 	}
 };
-/*
 
 // PATCH /routines/:routineId
-export const updateRoutine = async () => {
+export const updatedRoutine = async ({token, routineName, goal, isPublic, routineId}) => {
 	try {
-		const response = await fetch(`${BASE_URL}/routines/6`, {
+		const response = await fetch(`${BASE_URL}/routines/${routineId}`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${TOKEN_STRING_HERE}`,
+				Authorization: `Bearer ${token}`,
 			},
 			body: JSON.stringify({
-				name: "Long Cardio Day",
-				goal: "To get your heart pumping!",
+				name: routineName.charAt().toUpperCase() + routineName.slice(1),
+				goal: goal.charAt().toUpperCase() + goal.slice(1),
+				isPublic: isPublic
 			}),
 		});
 		const result = await response.json();
@@ -237,7 +235,8 @@ export const updateRoutine = async () => {
 	}
 };
 
-*/
+
+
 // DELETE /routines/:routineId
 export const deleteRoutine = async (routineId, {token}) => {
 	try {
@@ -256,7 +255,7 @@ export const deleteRoutine = async (routineId, {token}) => {
 	}
 };
 
-/*
+
 // POST /routines/:routineId/activities
 export const attachActivityToRoutinebyId = async () => {
 	try {
@@ -279,7 +278,7 @@ export const attachActivityToRoutinebyId = async () => {
 	}
 };
 
-*/
+
 
 // EXTRA
 export const getRoutinesById = async (routineId) => {
@@ -298,16 +297,16 @@ export const getRoutinesById = async (routineId) => {
 	}
 };
 
-/*
+
 //Routines_Activities Fetch-------------------------------------
 // PATCH /routine_activities/:routineActivityId
-export const UpdateRoutine_Activity = async () => {
+export const UpdateRoutine_Activity = async ({token}) => {
 	try {
 		const response = await fetch(`${BASE_URL}/routine_activities/11`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${TOKEN_STRING_HERE}`,
+				Authorization: `Bearer ${token}`,
 			},
 			body: JSON.stringify({
 				count: 2,
@@ -322,7 +321,7 @@ export const UpdateRoutine_Activity = async () => {
 	}
 };
 
-*/
+
 
 // DELETE /routine_activities/:routineActivityId
 export const deleteRoutine_Activity = async (routineActivityId, {token}) => {
